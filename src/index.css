@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'CenturyGothic';
+  src: url('./static/fonts/CenturyGothic.eot?#iefix') format('embedded-opentype'), url('./static/fonts/CenturyGothic.woff') format('woff'), url('./static/fonts/CenturyGothic.ttf') format('truetype'), url('./static/fonts/CenturyGothic.svg#CenturyGothic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'CenturyGothic', sans-serif;
+  font-size: 12px;
+}
+
+.container, .container-fluid {
+  margin-top: 5%;
+}

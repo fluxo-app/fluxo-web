@@ -1,0 +1,19 @@
+.badge.badge-success {
+  color: #ffffff;
+  background-color: #62c462;
+}
+
+.badge.badge-info {
+  color: #ffffff;
+  background-color: #5bc0de;
+}
+
+.badge.badge-warning {
+  color: #ffffff;
+  background-color: #f89406;
+}
+
+.badge.badge-danger {
+  color: #ffffff;
+  background-color: #ee5f5b;
+}

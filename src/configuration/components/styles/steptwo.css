@@ -1,0 +1,39 @@
+.lists-container {
+  margin-top: 15px;
+  background-color: rgba(121, 121, 121, 0.25) !important;
+}
+
+.list {
+  padding: 5px;
+  color: rgb(77, 77, 77);
+  width: auto;
+  margin: 0 5px;
+  min-width: 75px;
+  min-height: 75px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
+  white-space: nowrap;
+  background: #E2E4E6;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.fake-card {
+  background-color: rgb(255, 255, 255);
+  border-bottom-color: rgb(204, 204, 204);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  color: rgb(77, 77, 77);
+  cursor: pointer;
+  display: block;
+  min-height: 25px;
+}
+
+.well {
+  margin-bottom: 0 !important;
+}
