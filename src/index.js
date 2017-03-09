@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Router, Route, hashHistory} from 'react-router'
+import {Router, Route, browserHistory} from 'react-router'
 import {combineReducers, createStore, applyMiddleware} from 'redux'
 import {Provider} from 'react-redux'
 import {syncHistoryWithStore, routerReducer} from 'react-router-redux'
@@ -24,7 +24,7 @@ const reducers = {
 }
 const reducer = combineReducers(reducers)
 const store = createStore(reducer, applyMiddleware(sagaMiddleware, logger))
-const history = syncHistoryWithStore(hashHistory, store)
+const history = syncHistoryWithStore(browserHistory, store)
 sagaMiddleware.run(configurationSaga)
 sagaMiddleware.run(dashboardSaga)
 
