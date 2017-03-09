@@ -4,5 +4,7 @@ export const getResourceUrl = (action) => {
 }
 
 export const getRedirectUrl = (signInUrl) => {
-  return `${signInUrl}/?action=${window.location.origin}/configure`
+  const redirectUrl = `${signInUrl}/?action=${window.location.origin}/#/configure`
+  console.log(redirectUrl);
+  return `${signInUrl}/?action=${window.location.origin}/#/configure`
 }
