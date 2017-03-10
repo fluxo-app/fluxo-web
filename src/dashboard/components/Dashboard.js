@@ -31,9 +31,11 @@ class Dashboard extends Component {
   componentWillMount() {
     try {
       const selectedListIds = this.props.location && this.props.location.query && this.props.location.query.ids
+      console.log(selectedListIds);
       const decodedListIds = decodeURIComponent(selectedListIds)
+      console.log(decodedListIds);
       const parsedIds = JSON.parse(decodedListIds)
-      this.props.loadCards(false, parsedIds)
+      this.props.loadCards(this.props.isDemo, parsedIds)
     } catch (error) {
       this.props.parseQueryParamsFailed(error)
     }

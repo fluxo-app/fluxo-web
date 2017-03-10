@@ -28,7 +28,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages --dist build --repo https://github.com/fluxo-app/fluxo-app.github.io.git --branch master"
+    "deploy": "firebase deploy"
   },
-  "homepage": "https://fluxo-app.github.io"
+  "homepage": "https://fluxo.hugohaggmark.com"
 }

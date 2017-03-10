@@ -7,16 +7,13 @@ import TopNavigation from './TopNavigation'
 import {loadMeAction} from '../actions'
 import {Loader, Disclaimer} from '../../application'
 
-const steps = [null, <StepOne isDemo={false}/>, <StepTwo isDemo={false}/>]
 
 class Configuration extends Component {
   componentWillMount() {
-    this.props.loadMe(false)
-  }
-  renderStep = (step) => {
-    return steps[step]
+    this.props.loadMe(this.props.isDemo)
   }
   render() {
+    const steps = [null, <StepOne isDemo={this.props.isDemo}/>, <StepTwo isDemo={this.props.isDemo}/>]
     const {me, step} = this.props
     const fullName = me ? me.fullName : ''
     return (
@@ -28,7 +25,7 @@ class Configuration extends Component {
               <h2>{`Welcome to Fluxo ${fullName}`}</h2>
               <p>Follow these simple steps to get Kanban style statistics for your Trello Board.</p>
               <TopNavigation step={step}/>
-              {this.renderStep(step)}
+              {steps[step]}
             </Jumbotron>
           </Col>
         </Row>
