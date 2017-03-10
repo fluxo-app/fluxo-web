@@ -34,9 +34,9 @@ class Graph extends Component {
           },
           legend: {
               enabled: true,
-              layout: 'vertical',
-              align: 'right',
-              verticalAlign: 'middle',
+              layout: 'horizontal',
+              align: 'center',
+              verticalAlign: 'bottom',
               borderWidth: 0
           },
           plotOptions: {

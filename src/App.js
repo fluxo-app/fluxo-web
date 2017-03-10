@@ -47,7 +47,7 @@ class App extends Component {
     return (
       <Grid>
         <Row>
-          <Col xs={10} xsOffset={1} md={8} mdOffset={2}>
+          <Col xs={12} md={10} mdOffset={1}>
             <Jumbotron>
               {logo}
               {title}
