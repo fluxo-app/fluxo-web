@@ -5,20 +5,11 @@ import ListItemWithBadgeAndTotals from './ListItemWithBadgeAndTotals'
 import './styles/statistics.css'
 
 class Statistics extends Component {
-  renderFooter = (color) => (
-    <div style={{
-      backgroundColor:color,
-      display:"block",
-      width: "100%",
-      minHeight:"15px"
-    }}>
-    </div>
-  )
   render () {
-    const {name, cards, leadtime, color} = this.props
+    const {name, cards, leadtime} = this.props
     return (
       <div>
-        <Panel header={name} footer={this.renderFooter(color)}>
+        <Panel header={name} footer={name}>
           <ListGroup>
             <ListItemWithBadge text="Average:" badge={leadtime && Math.round(leadtime.average)}/>
             <ListItemWithBadge text="Days:" badge={leadtime && Math.round(leadtime.total)}/>
