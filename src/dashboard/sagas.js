@@ -7,10 +7,10 @@ export function* loadCardsAsync(action) {
     yield put({type: constants.LOAD_CARDS_STARTED })
     const selectedListIds = yield action.payload.selectedListIds
     const endListId = yield selectedListIds[selectedListIds.length -1]
-    const url = yield `${settings.getResourceUrl(action)}/lists/${endListId}`
+    const url = yield `${settings.getApiEndPoint(action.payload.isDemo)}/lists/${endListId}`
     const loadcardsApi = yield new api(url)
     const cards = yield call(loadcardsApi.get)
-    yield put({type: constants.LOAD_CARDS_SUCCEEDED, cards})
+    yield put({type: constants.LOAD_CARDS_SUCCEEDED, cards: cards.response})
   } catch (error) {
     yield put({type: constants.LOAD_CARDS_FAILED, error})
   }

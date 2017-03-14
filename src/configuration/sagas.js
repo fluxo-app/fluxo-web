@@ -6,10 +6,10 @@ import {constants as dashboardConstants} from '../dashboard'
 export function* loadMeAsync(action) {
   try {
     yield put({ type: constants.LOAD_ME_STARTED })
-    const url = yield `${settings.getResourceUrl(action)}/me`
+    const url = yield `${settings.getApiEndPoint(action.payload.isDemo)}/me`
     const loadMeApi = yield new api(url)
     const me = yield call(loadMeApi.get)
-    yield put({type: constants.LOAD_ME_SUCCEEDED, me})
+    yield put({type: constants.LOAD_ME_SUCCEEDED, me: me.response})
   } catch (error) {
     yield put({ type: constants.LOAD_ME_FAILED, error })
   }
@@ -18,10 +18,10 @@ export function* loadMeAsync(action) {
 export function* loadBoardsAsync(action) {
   try {
     yield put({ type: constants.LOAD_BOARDS_STARTED })
-    const url = yield `${settings.getResourceUrl(action)}/my/boards`
+    const url = yield `${settings.getApiEndPoint(action.payload.isDemo)}/my/boards`
     const loadBoardsApi = yield new api(url)
     const boards = yield call(loadBoardsApi.get)
-    yield put({type: constants.LOAD_BOARDS_SUCCEEDED, boards})
+    yield put({type: constants.LOAD_BOARDS_SUCCEEDED, boards: boards.response})
   } catch (error) {
     yield put({type: constants.LOAD_BOARDS_FAILED, error})
   }
@@ -31,10 +31,10 @@ export function* loadListsAsync(action) {
   try {
     yield put({ type: constants.LOAD_LISTS_STARTED })
     const boardId = yield action.payload.boardId
-    const url = yield `${settings.getResourceUrl(action)}/boards/${boardId}/lists`
+    const url = yield `${settings.getApiEndPoint(action.payload.isDemo)}/boards/${boardId}/lists`
     const loadListsApi = yield new api(url)
     const lists = yield call(loadListsApi.get)
-    yield put({type: constants.LOAD_LISTS_SUCCEEDED, lists})
+    yield put({type: constants.LOAD_LISTS_SUCCEEDED, lists: lists.response})
   } catch (error) {
     yield put({type: constants.LOAD_LISTS_FAILED, error})
   }

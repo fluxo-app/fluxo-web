@@ -1,22 +1,35 @@
 import fetch from 'isomorphic-fetch'
 
 const handleError = (error) => {
-  throw new Error(error.message)
+  throw new Error(error)
 }
 
 const parseResponse = async (response) => {
   if (response && response.status === 401) {
     // eslint-disable-next-line
-    throw await response.json()
+    throw {
+      status: response.status,
+      response: await response.json()
+    }
   }
   if (response && response.ok) {
     try {
-      return response.json()
+      // eslint-disable-next-line
+      return {
+        status: response.status,
+        response: await response.json()
+      }
     } catch (error) {
-      return handleError(error)
+      return handleError({
+        status: response.status,
+        response: error
+      })
     }
   }
-  return handleError({message: response})
+  return handleError({
+    status: response.status,
+    response: response
+  })
 }
 
 export default class api {
