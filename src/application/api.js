@@ -1,35 +1,35 @@
 import fetch from 'isomorphic-fetch'
+import {toastr} from 'react-redux-toastr'
 
 const handleError = (error) => {
-  throw new Error(error)
+  const statusText = error && error.message ? error.message : error.response.statusText
+  const status = error && error.status ? `status:${error.status} ` : ''
+  const message = `${status}statusText:'${statusText}' url:${error.url}`
+
+  toastr.error('Ooops something is wrong', message)
+  throw new Error(message)
 }
 
 const parseResponse = async (response) => {
   if (response && response.status === 401) {
     // eslint-disable-next-line
-    throw {
+    return {
       status: response.status,
       response: await response.json()
     }
   }
   if (response && response.ok) {
-    try {
-      // eslint-disable-next-line
-      return {
-        status: response.status,
-        response: await response.json()
-      }
-    } catch (error) {
-      return handleError({
-        status: response.status,
-        response: error
-      })
+    // eslint-disable-next-line
+    return {
+      status: response.status,
+      response: await response.json()
     }
   }
-  return handleError({
+  // eslint-disable-next-line
+  throw {
     status: response.status,
     response: response
-  })
+  }
 }
 
 export default class api {
@@ -63,5 +63,8 @@ export default class api {
   exec = () => {
     return fetch(this.url, this.options)
       .then(response => parseResponse(response))
+      .catch(error => {
+        handleError({...error, url: this.url, message: error.message, status: error.status})
+      })
   }
 }
