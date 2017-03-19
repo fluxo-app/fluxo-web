@@ -22,11 +22,14 @@ class App extends Component {
     )
     const footer = (
       <Row>
-        <Col xs={12} md={6}>
+        <Col xs={12} md={4}>
           <Link to="/configure" className="btn btn-info btn-block">Configure</Link>
         </Col>
-        <Col xs={12} md={6}>
+        <Col xs={12} md={4}>
           <Link to="/try-it-out" className="btn btn-info btn-block">Try it out</Link>
+        </Col>
+        <Col xs={12} md={4}>
+          <a href="https://github.com/fluxo-app" target="_blank" className="btn btn-info btn-block">Source Code</a>
         </Col>
       </Row>
     )
