@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Grid, Row, Col, Button} from 'react-bootstrap'
 import {Loader, Disclaimer} from '../../application'
 import Slide from './Slide'
-import {loadCardsAction} from '../actions'
+import {loadCardsAction, caclulateStatisticsAction} from '../actions'
 import {PARSE_QUERY_PARAMS_FAILED} from '../constants'
 import './styles/dashboard.css'
 
@@ -33,7 +33,10 @@ class Dashboard extends Component {
       const selectedListIds = this.props.location && this.props.location.query && this.props.location.query.ids
       const decodedListIds = decodeURIComponent(selectedListIds)
       const parsedIds = JSON.parse(decodedListIds)
-      this.props.loadCards(this.props.isDemo, parsedIds)
+      parsedIds.map(id => {
+        this.props.loadCards(this.props.isDemo, id)
+        return id
+      })
     } catch (error) {
       this.props.parseQueryParamsFailed(error)
     }
@@ -44,12 +47,17 @@ class Dashboard extends Component {
   componentWillUnmount() {
     clearInterval(this._interval)
   }
+  renderSlide = (labels, cumulativeLabels) => {
+    const label = labels[this.state.activeSlide]
+    const cumulativeLabel = cumulativeLabels.find(l => l.id === label.id)
+    return <Slide label={label} cumulativeLabel={cumulativeLabel}/>  
+  }
   render () {
-    const {labels} = this.props
+    const {labels, cumulativeLabels} = this.props
     return (
       <Grid fluid>
         <Loader/>
-        {labels && labels.length > 0 && <Slide label={labels[this.state.activeSlide]}/>}
+        {labels && labels.length > 0 && this.renderSlide(labels, cumulativeLabels)}
         <Row>
           <Col xs={12} className="text-center slide-navigation">
             <Button
@@ -75,8 +83,10 @@ class Dashboard extends Component {
 }
 
 export default connect(state => ({
-  labels : state.dashboard.labels,
+  labels: state.dashboard.labels,
+  cumulativeLabels: state.dashboard.cumulativeLabels
 }), dispatch => ({
-  loadCards: (isDemo, selectedListIds) => dispatch(loadCardsAction(isDemo, selectedListIds)),
+  loadCards: (isDemo, id) => dispatch(loadCardsAction(isDemo, id)),
+  calculateStatistics: () => dispatch(caclulateStatisticsAction()),
   parseQueryParamsFailed: (error) => dispatch({type:PARSE_QUERY_PARAMS_FAILED, payload: error})
 }))(Dashboard)

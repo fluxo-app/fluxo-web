@@ -71,7 +71,6 @@ const pushCardToLabel = (array, label, labelCard) => {
 }
 
 const getLabels = (cards) => {
-
   return cards && cards.length > 0 && cards.reduce((previous, card) => {
     const labelCard = {
       id: card.id,
@@ -92,20 +91,110 @@ const getLabels = (cards) => {
   }, [{id:'totals', name:'Totals', cards:[]}])
 }
 
+const getUtcDateAsTick = (date) => {
+  return moment(date).utc().valueOf()
+}
+
+const addToLists = (lists, list, tick, value) => {
+  if (!list) {
+    return lists
+  }
+
+  return lists.map(l => {
+    const found = l.data.find(d => d[0] === tick)
+    if (l.id === list.id) {
+      l.name = list.name
+      if (found) {
+        found[1] += value
+      } else {
+        l.data.push([tick, value])
+        l.ticks.push([tick, value])
+      }
+    } else {
+      if (!found) {
+        l.data.push([tick, 0])
+        l.ticks.push([tick, 0])
+      }
+    }
+
+    return l
+  })
+}
+const getCumulativeFlow = (cards, selectedListIds) => {
+  const cumulativeFlow = {
+    lists: []
+  }
+
+  selectedListIds && selectedListIds.map(id => {
+    cumulativeFlow.lists.push({
+      id: id,
+      name: '',
+      ticks:[],
+      data: []
+    })
+    return id
+  })
+
+  cards.map(card => {
+    card.actions.map(action => {
+      const tick = getUtcDateAsTick(action.date)
+      const listAfter = action.data && action.data.list ? action.data.list : action.data.listAfter
+      addToLists(cumulativeFlow.lists, listAfter, tick, 1)
+
+      const listBefore = action.data && action.data.listBefore
+      addToLists(cumulativeFlow.lists, listBefore, tick, -1)
+
+      return action
+    })
+
+    return card
+  })
+
+  cumulativeFlow.lists.map(list => {
+    list.data.sort()
+    list.ticks.sort()
+    list.data.reduce((prev, current) => {
+      current[1] += prev[1]
+      if (current[1] < 0) {
+        current[1] = 0
+      }
+
+      return current
+    }, [0,0])
+
+    return list
+  })
+
+  return cumulativeFlow
+}
+
+const decorateLabelWithCumulativeFlow = (labels, selectedListIds) => {
+  return labels && labels.map(label => {
+    const cumulativeFlow = getCumulativeFlow(label.cards, selectedListIds)
+    return {...label, cumulativeFlow: cumulativeFlow}
+  })
+}
+
 const initialState =  {
   selectedListIds:[],
   cards: [],
   labels: [],
+  lists: []
 }
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case constants.LOAD_CARDS:
-      return {...state, selectedListIds: action.payload.selectedListIds}
+      return {...state, selectedListIds: state.selectedListIds.concat(action.payload.id)}
     case constants.LOAD_CARDS_SUCCEEDED:
-      const cards = action.cards
-      const labels = decorateLabelWithLeadTime(getLabels(cards))
-      return {...state, cards: cards, labels: labels}
+      const lists = state.lists.concat(action.list)
+      const lastList = lists[lists.length - 1]
+      const labels = decorateLabelWithLeadTime(getLabels(lastList.cards))
+
+      const cards = state.cards.concat(action.list.cards)
+      const cumulativeLabels = decorateLabelWithCumulativeFlow(getLabels(cards), state.selectedListIds)
+
+      return {...state, lists: lists, cards: cards, labels: labels, cumulativeLabels: cumulativeLabels}
     default:
       return {...state}
   }

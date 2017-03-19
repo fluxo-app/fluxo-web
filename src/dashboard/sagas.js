@@ -5,12 +5,11 @@ import * as constants from './constants'
 export function* loadCardsAsync(action) {
   try {
     yield put({type: constants.LOAD_CARDS_STARTED })
-    const selectedListIds = yield action.payload.selectedListIds
-    const endListId = yield selectedListIds[selectedListIds.length -1]
-    const url = yield `${settings.getApiEndPoint(action.payload.isDemo)}/lists/${endListId}`
+    const id = yield action.payload.id
+    const url = yield `${settings.getApiEndPoint(action.payload.isDemo)}/lists/${id}`
     const loadcardsApi = yield new api(url)
-    const cards = yield call(loadcardsApi.get)
-    yield put({type: constants.LOAD_CARDS_SUCCEEDED, cards: cards.response})
+    const list = yield call(loadcardsApi.get)
+    yield put({type: constants.LOAD_CARDS_SUCCEEDED, list:list.response})
   } catch (error) {
     yield put({type: constants.LOAD_CARDS_FAILED, error})
   }

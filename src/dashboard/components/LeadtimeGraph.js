@@ -5,7 +5,7 @@ import Exporting from '../highcharts-exporting.js'
 import '../indicators.js'
 import './styles/graph.css'
 
-class Graph extends Component {
+class LeadtimeGraph extends Component {
   constructor() {
     super()
     Exporting(Highcharts)
@@ -82,4 +82,4 @@ class Graph extends Component {
   }
 }
 
-export default Graph
+export default LeadtimeGraph

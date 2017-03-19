@@ -1,20 +1,25 @@
 import React, {Component} from 'react'
 import {Row, Col} from 'react-bootstrap'
 import Statistics from './Statistics'
-import Graph from './Graph'
+import LeadtimeGraph from './LeadtimeGraph'
+import CumulativeFlowGraph from './CumulativeFlowGraph'
 
 class Slide extends Component {
   render () {
-    const {label} = this.props
+    const {label, cumulativeLabel} = this.props
     const labelId = label && label.name.replace(new RegExp(' ', 'g'), '');
-    const id = `label-${labelId}`
+    const leadTimeId = `label-leadtime-${labelId}`
+    const cumulativeFlowId = `label-cumulative-${labelId}`
     return (
       <Row>
         <Col xs={12} md={3}>
-          <Statistics key={id} {...label} />
+          <Statistics key={leadTimeId} {...label} />
         </Col>
         <Col xs={12} md={9}>
-          <Graph key={id} id={id} {...label} />
+          <LeadtimeGraph key={leadTimeId} id={leadTimeId} leadtime={label.leadtime} />
+        </Col>
+        <Col xs={12} md={12}>
+          <CumulativeFlowGraph key={cumulativeFlowId} id={cumulativeFlowId} cumulativeFlow={cumulativeLabel.cumulativeFlow}/>
         </Col>
       </Row>
     )
