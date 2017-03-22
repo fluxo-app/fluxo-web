@@ -1,3 +1,3 @@
-import {AUTHORIZATION_FAILED} from './constants'
+import {VALIDATE_JWT} from './constants'
 
-export const authorizationFailedAction = (error) => ({type:AUTHORIZATION_FAILED, error})
+export const validateJwtAction = (jwt) => ({type:VALIDATE_JWT, jwt})

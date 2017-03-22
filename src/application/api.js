@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import {toastr} from 'react-redux-toastr'
+import {SESSIONSTORAGE_JWT} from './constants'
 
 const handleError = (error) => {
   const statusText = error && error.message ? error.message : error.response.statusText
@@ -34,10 +35,12 @@ const parseResponse = async (response) => {
 
 export default class api {
   constructor(url) {
+    const jwt = sessionStorage.getItem(SESSIONSTORAGE_JWT)
     this.options = {
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwt}`
       }
     }
     this.url = url
@@ -46,7 +49,7 @@ export default class api {
   get = () => {
     this.options = {
       ...this.options,
-      method: 'GET'
+      method: 'GET',
     }
     return this.exec()
   }

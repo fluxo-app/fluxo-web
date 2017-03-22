@@ -1,1 +1,2 @@
-export const AUTHORIZATION_FAILED = 'AUTHORIZATION_FAILED'
+export const VALIDATE_JWT = 'VALIDATE_JWT'
+export const SESSIONSTORAGE_JWT = 'fluxo.jwt'
