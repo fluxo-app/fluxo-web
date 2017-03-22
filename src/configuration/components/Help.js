@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Popover, Glyphicon, OverlayTrigger} from 'react-bootstrap'
+import {gtm} from '../../application'
 import './styles/help.css'
 
 export default class Help extends Component {
@@ -8,6 +9,11 @@ export default class Help extends Component {
     this.state = {
       show: false
     }
+  }
+  toggleVisible = () => {
+    const label = this.state.show ? 'show -> hide' : 'hide -> show'
+    gtm('toggle-help', `${label} | step ${this.props.step}`)
+    this.setState({show: !this.state.show})
   }
   render () {
     const {lines} = this.props
@@ -21,7 +27,7 @@ export default class Help extends Component {
     return (
       <li>
         <OverlayTrigger trigger="click" placement="right" overlay={popoverHelp}>
-          <Glyphicon className="help-icon" glyph="question-sign" onClick={() => this.setState({show: !this.state.show})}/>
+          <Glyphicon className="help-icon" glyph="question-sign" onClick={() => this.toggleVisible()}/>
         </OverlayTrigger>
       </li>
     )

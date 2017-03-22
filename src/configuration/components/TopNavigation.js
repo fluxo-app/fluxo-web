@@ -13,8 +13,8 @@ export default class TopNavigation extends Component {
         <NavItem eventKey={0} onClick={() => window.location.href = window.location.origin}>Home</NavItem>
         <NavItem eventKey={1} disabled={step !== 1}>Step 1, choose board</NavItem>
         <NavItem eventKey={2} disabled={step !== 2}>Step 2, define flow</NavItem>
-        {step === 1 && <Help lines={helpStepOne}/>}
-        {step === 2 && <Help lines={helpStepTwo}/>}
+        {step === 1 && <Help lines={helpStepOne} step={step}/>}
+        {step === 2 && <Help lines={helpStepTwo} step={step}/>}
       </Nav>
     )
   }
