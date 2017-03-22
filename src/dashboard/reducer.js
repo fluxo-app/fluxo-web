@@ -1,4 +1,5 @@
 import * as constants from './constants'
+import {gtm} from '../application'
 import moment from 'moment'
 
 const getLeadTime = (cards) => {
@@ -101,6 +102,7 @@ const initialState =  {
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case constants.LOAD_CARDS:
+      gtm('dashboard-loaded', action.payload.selectedListIds.length)
       return {...state, selectedListIds: action.payload.selectedListIds}
     case constants.LOAD_CARDS_SUCCEEDED:
       const cards = action.cards

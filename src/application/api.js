@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch'
+import gtm from './gtm'
 import {toastr} from 'react-redux-toastr'
 import {SESSIONSTORAGE_JWT} from './constants'
 
@@ -6,7 +7,7 @@ const handleError = (error) => {
   const statusText = error && error.message ? error.message : error.response.statusText
   const status = error && error.status ? `status:${error.status} ` : ''
   const message = `${status}statusText:'${statusText}' url:${error.url}`
-
+  gtm('error', message)
   toastr.error('Ooops something is wrong', message)
   throw new Error(message)
 }

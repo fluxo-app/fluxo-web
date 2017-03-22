@@ -1,4 +1,5 @@
 import * as constants from './constants'
+import {gtm} from '../application'
 
 const initialState =  {
   selectedBoardId: -1,
@@ -9,6 +10,7 @@ const initialState =  {
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case constants.LOAD_ME_SUCCEEDED:
+      gtm('user-loaded', action.me && action.me.fullName)
       return {...state, me: action.me, step: 1}
     case constants.LOAD_BOARDS_SUCCEEDED:
       return {...state, boards: action.boards, step: 1}

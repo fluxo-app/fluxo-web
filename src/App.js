@@ -7,12 +7,15 @@ import {
   Col,
   Jumbotron
 } from 'react-bootstrap'
-import {Disclaimer} from './application'
+import {Disclaimer, gtm} from './application'
 import fluxo from './static/images/logo.png'
 
 class App extends Component {
   render() {
-    document.title = 'Welcome | Fluxo'
+    document.title = 'Welcome to Fluxo'
+    const trackClick = (label) => {
+      gtm('buttonClick', label)
+    }
     const title = (
       <blockquote>
         <h3>
@@ -23,13 +26,13 @@ class App extends Component {
     const footer = (
       <Row>
         <Col xs={12} md={4}>
-          <Link to="/configure" className="btn btn-info btn-block">Configure</Link>
+          <Link to="/configure" className="btn btn-info btn-block" onClick={() => trackClick('Configure')}>Configure</Link>
         </Col>
         <Col xs={12} md={4}>
-          <Link to="/try-it-out" className="btn btn-info btn-block">Try it out</Link>
+          <Link to="/try-it-out" className="btn btn-info btn-block" onClick={() => trackClick('Try it out')}>Try it out</Link>
         </Col>
         <Col xs={12} md={4}>
-          <a href="https://github.com/fluxo-app" target="_blank" className="btn btn-info btn-block">Source Code</a>
+          <a href="https://github.com/fluxo-app" target="_blank" className="btn btn-info btn-block" onClick={() => trackClick('Source Code')}>Source Code</a>
         </Col>
       </Row>
     )

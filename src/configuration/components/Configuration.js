@@ -16,6 +16,7 @@ class Configuration extends Component {
     const steps = [null, <StepOne isDemo={this.props.isDemo}/>, <StepTwo isDemo={this.props.isDemo}/>]
     const {me, step} = this.props
     const fullName = me ? me.fullName : ''
+    document.title = 'Welcome to Fluxo ' + fullName
     return (
       <Grid fluid>
         <Loader/>
