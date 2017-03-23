@@ -15,7 +15,8 @@ class StepOne extends Component {
       <div className="step-one-container">
         <Row>
           <Col xs={12}>
-            {boards && boards.map(board => {
+            <div className="flex-container">
+              {boards && boards.map(board => {
                 return <Button
                   key={`board-${board.id}`}
                   active={selectedBoardId === board.id}
@@ -24,6 +25,7 @@ class StepOne extends Component {
                   {board.name}
                 </Button>
               })}
+            </div>
               <StepNavigator/>
           </Col>
         </Row>
