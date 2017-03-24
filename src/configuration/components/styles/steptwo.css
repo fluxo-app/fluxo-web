@@ -1,3 +1,8 @@
+.step-two-container .btn {
+  margin-right: 3px;
+  margin-bottom: 3px;
+}
+
 .lists-container {
   margin-top: 15px;
   background-color: rgba(121, 121, 121, 0.25) !important;
@@ -7,7 +12,7 @@
   padding: 5px;
   color: rgb(77, 77, 77);
   width: auto;
-  margin: 0 5px;
+  margin: 0 5px 10px 5px;
   min-width: 75px;
   min-height: 75px;
   display: inline-block;

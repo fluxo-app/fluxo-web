@@ -15,20 +15,32 @@ class StepTwo extends Component {
   render () {
     const {lists, selectedListIds, selectList, unSelectList} = this.props
     return (
-      <div>
+      <div className="step-two-container">
         <Row>
-          <Col xs={12}>
-            <ButtonGroup data-toggle="buttons">
-              {lists && lists.map(list => {
-                return <Button
-                  key={`lists-${list.id}`}
-                  active={this.isSelected(list.id)}
-                  bsStyle={this.isSelected(list.id) ? "success" : "info"}
-                  onClick={() => this.isSelected(list.id) ? unSelectList(list.id) : selectList(list.id)}>
-                  {list.name}
-                </Button>
-              })}
-            </ButtonGroup>
+          <Col xs={12} xsHidden smHidden>
+            {lists && lists.map(list => {
+              return <Button
+                key={`lists-${list.id}`}
+                active={this.isSelected(list.id)}
+                bsStyle={this.isSelected(list.id) ? "success" : "info"}
+                onClick={() => this.isSelected(list.id) ? unSelectList(list.id) : selectList(list.id)}>
+                {list.name}
+              </Button>
+            })}
+          </Col>
+          <Col xs={12} lgHidden mdHidden>
+
+            {lists && lists.map(list => {
+              return <Button
+                bsSize="small"
+                key={`lists-${list.id}`}
+                active={this.isSelected(list.id)}
+                bsStyle={this.isSelected(list.id) ? "success" : "info"}
+                onClick={() => this.isSelected(list.id) ? unSelectList(list.id) : selectList(list.id)}>
+                {list.name}
+              </Button>
+            })}
+
           </Col>
         </Row>
         <Row>

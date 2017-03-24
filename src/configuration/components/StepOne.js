@@ -14,19 +14,30 @@ class StepOne extends Component {
     return (
       <div className="step-one-container">
         <Row>
-          <Col xs={12}>
-            <div className="flex-container">
-              {boards && boards.map(board => {
-                return <Button
-                  key={`board-${board.id}`}
-                  active={selectedBoardId === board.id}
-                  bsStyle={selectedBoardId === board.id ? "success" : "info"}
-                  onClick={() => selectBoard(board.id)}>
-                  {board.name}
-                </Button>
-              })}
-            </div>
-              <StepNavigator/>
+          <Col xs={12} xsHidden smHidden>
+            {boards && boards.map(board => {
+              return <Button
+                key={`board-${board.id}`}
+                active={selectedBoardId === board.id}
+                bsStyle={selectedBoardId === board.id ? "success" : "info"}
+                onClick={() => selectBoard(board.id)}>
+                {board.name}
+              </Button>
+            })}
+            <StepNavigator/>
+          </Col>
+          <Col xs={12} lgHidden mdHidden>
+            {boards && boards.map(board => {
+              return <Button
+                bsSize="small"
+                key={`board-${board.id}`}
+                active={selectedBoardId === board.id}
+                bsStyle={selectedBoardId === board.id ? "success" : "info"}
+                onClick={() => selectBoard(board.id)}>
+                {board.name}
+              </Button>
+            })}
+            <StepNavigator/>
           </Col>
         </Row>
       </div>
