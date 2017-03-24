@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
 import {Link} from 'react-router'
 import {
   Grid,
@@ -26,7 +27,7 @@ class App extends Component {
     const footer = (
       <Row>
         <Col xs={12} md={4}>
-          <Link to="/configure" className="btn btn-info btn-block" onClick={() => trackClick('Configure')}>Configure</Link>
+          <Link to="/configure" className="btn btn-success btn-block" onClick={() => trackClick('Configure')}>{this.props.accessToken ? 'Configure' : 'SignIn'}</Link>
         </Col>
         <Col xs={12} md={4}>
           <Link to="/try-it-out" className="btn btn-info btn-block" onClick={() => trackClick('Try it out')}>Try it out</Link>
@@ -68,4 +69,8 @@ class App extends Component {
   }
 }
 
-export default App
+export default connect(state => ({
+  accessToken: state.application.accessToken
+}), dispatch => ({
+
+}))(App)

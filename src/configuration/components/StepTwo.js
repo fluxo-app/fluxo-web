@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Row, Col, ButtonGroup, Button, Well} from 'react-bootstrap'
+import {Row, Col, Button, Well} from 'react-bootstrap'
 import {loadListsAction, selectListAction, unSelectListAction} from '../actions'
 import StepNavigator from './StepNavigator'
 import './styles/steptwo.css'

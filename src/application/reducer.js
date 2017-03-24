@@ -31,13 +31,18 @@ const reducer = (state = initialState, action = {}) => {
     case configurationConstants.LOAD_LISTS_STARTED:
     case dashboardConstants.LOAD_CARDS_STARTED:
       return {...state, loading: true}
+    case configurationConstants.LOAD_ME_SUCCEEDED:
+    case configurationConstants.LOAD_BOARDS_SUCCEEDED:
+    case configurationConstants.LOAD_LISTS_SUCCEEDED:
+    case dashboardConstants.LOAD_CARDS_SUCCEEDED:
+      return {...state, loading: false}      
     case configurationConstants.LOAD_ME_FAILED:
     case configurationConstants.LOAD_BOARDS_FAILED:
     case configurationConstants.LOAD_LISTS_FAILED:
     case dashboardConstants.LOAD_CARDS_FAILED:
-      return {...initialState}
+      return {...state, loading: false}
     default:
-      return {...initialState}
+      return {...state}
   }
 }
 
