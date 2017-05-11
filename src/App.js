@@ -20,7 +20,7 @@ class App extends Component {
     const title = (
       <blockquote>
         <h3>
-          <strong>Fluxo</strong>, the Kanban dasboard for Trello boards
+          <strong>Fluxo</strong>, the Kanban dashboard for Trello boards
         </h3>
       </blockquote>
     )
