@@ -26,11 +26,6 @@ class App extends Component {
     )
     const footer = (
       <Row>
-        <!--
-          <Col xs={12} md={4}>
-            <Link to="/configure" className="btn btn-success btn-block" onClick={() => trackClick('Configure')}>{this.props.accessToken ? 'Configure' : 'SignIn'}</Link>
-          </Col>
-        -->
         <Col xs={12} md={4}>
           <Link to="/try-it-out" className="btn btn-info btn-block" onClick={() => trackClick('Try it out')}>Try it out</Link>
         </Col>
